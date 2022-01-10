@@ -45,13 +45,18 @@ setTimeout(() => cookieCloseBtn = document
   .querySelector('.btn--close-cookie'), 1550);
 
 ///// Open cookie message with 1.5s delay
-setTimeout(() => header.prepend(cookieMessage), 1500);
+setTimeout(() => header.append(cookieMessage), 1500);
 
 ///// Close cookie message with 1.6s delay
-setTimeout( () => cookieCloseBtn
+setTimeout(() => cookieCloseBtn
   .addEventListener('click', () => cookieMessage.remove()), 1600);
 
-////////////////////////////////////////////////////
+///// Styles for cookie message button
+cookieMessage.style.backgroundColor = '#37383d';
+cookieMessage.style.width = '100vw';
+cookieMessage.style.height = '70px';
+
+
 
 
 
