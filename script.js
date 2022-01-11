@@ -1,19 +1,38 @@
 'use strict';
 
-//////////////////  HEADER  //////////////////////////////
+///// DOM selectors /////
+const modal = document
+  .querySelector('.modal');
+const overlay = document
+  .querySelector('.overlay');
+const btnCloseModal = document
+  .querySelector('.btn--close-modal');
+const btnsOpenModal = document
+  .querySelectorAll('.btn--show-modal');
+const header = document
+  .querySelector('.header');
+const cookieMessage = document
+  .createElement('div');
+const buttonScrollTo = document
+  .querySelector('.btn--scroll-to');
+const section1 = document
+  .querySelector('#section--1');
+const tabs = document
+  .querySelectorAll('.operations__tab');
+const tabsContainer = document
+  .querySelector('.operations__tab-container');
+const tabsContent = document
+  .querySelectorAll('.operations__content');
+const navBar = document.querySelector('.nav');
+
+//////////////////  HEADER STYLE CHANGED  //////////////////////////////
 /// colors H1
 document.querySelector('h1')
   .firstElementChild.style.color = '#4F9E59';
 document.querySelector('h1')
   .lastElementChild.style.color = 'white';
 
-/////////////////  MODAL WINDOW, OPEN AND CLOSE WITH EVENT HANDLERS ////////////////
-///// Modal window selectors
-const modal = document.querySelector('.modal');
-const overlay = document.querySelector('.overlay');
-const btnCloseModal = document.querySelector('.btn--close-modal');
-const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
-
+/////////////////  MODAL WINDOW, OPEN AND CLOSE WITH EVENT HANDLERS ///////////
 const openModal = function(e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -40,9 +59,6 @@ document.addEventListener('keydown', function(e) {
 });
 
 ///////////////////////// ADD COOKIE MESSAGE WITH TIME DELAY //////
-///// Cookie message and header selectors
-const header = document.querySelector('.header');
-const cookieMessage = document.createElement('div');
 cookieMessage.classList.add('cookie-message');
 cookieMessage.innerHTML =
   'We use cookie for improved functionality and analytics. ' +
@@ -64,10 +80,6 @@ cookieMessage.style.width = '100vw';
 cookieMessage.style.height = '70px';
 
 ///////////////////////// BUTTON SCROLL /////////////////////////////////
-///// Button and section selectors
-const buttonScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
 ///// Event handler to the button
 buttonScrollTo.addEventListener('click', function(e) {
   e.preventDefault();
@@ -90,14 +102,6 @@ document.querySelector('.nav__links')
   }, true);
 
 ///////////////// TABBED COMPONENTS //////////////////////
-/// Tab all selectors
-const tabs = document
-  .querySelectorAll('.operations__tab');
-const tabsContainer = document
-  .querySelector('.operations__tab-container');
-const tabsContent = document
-  .querySelectorAll('.operations__content');
-
 /// Event handlers
 tabsContainer.addEventListener('click', function(e) {
   e.preventDefault();
@@ -121,6 +125,29 @@ tabsContainer.addEventListener('click', function(e) {
     .classList.add('operations__content--active');
 });
 
+//////////////////////// NAV BAR FADE ANIMATION /////////////////////////
+/// Universal handler function
+const hoverHandler = function(e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav')
+      .querySelectorAll('.nav__link');
+    const logo = link.closest('.nav')
+      .querySelector('.nav__logo');
 
+    siblings.forEach(el => {
+      if (el !== link) {
+        el.style.opacity = this;
+      }
+      logo.style.opacity = this;
+    });
+  }
+};
+
+/// Event handlers
+navBar
+  .addEventListener('mouseover', hoverHandler.bind(0.5));
+navBar
+  .addEventListener('mouseout', hoverHandler.bind(1));
 
 
