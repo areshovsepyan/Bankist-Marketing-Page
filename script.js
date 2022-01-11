@@ -1,5 +1,12 @@
 'use strict';
 
+//////////////////  HEADER  //////////////////////////////
+/// colors H1
+document.querySelector('h1')
+  .firstElementChild.style.color = '#4F9E59';
+document.querySelector('h1')
+  .lastElementChild.style.color = 'white';
+
 /////////////////  MODAL WINDOW, OPEN AND CLOSE WITH EVENT HANDLERS ////////////////
 ///// Modal window selectors
 const modal = document.querySelector('.modal');
@@ -81,6 +88,39 @@ document.querySelector('.nav__links')
       document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
     }
   }, true);
+
+///////////////// TABBED COMPONENTS //////////////////////
+/// Tab all selectors
+const tabs = document
+  .querySelectorAll('.operations__tab');
+const tabsContainer = document
+  .querySelector('.operations__tab-container');
+const tabsContent = document
+  .querySelectorAll('.operations__content');
+
+/// Event handlers
+tabsContainer.addEventListener('click', function(e) {
+  e.preventDefault();
+  const clicked = e.target.closest('.operations__tab');
+  // Guard clause
+  if (!clicked) return;
+
+  // remove active classes
+  tabs
+    .forEach(tab => tab
+      .classList.remove('operations__tab--active'));
+  tabsContent
+    .forEach(content => content
+      .classList.remove('operations__content--active'));
+
+  // add active classes
+  clicked
+    .classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
 
 
 
