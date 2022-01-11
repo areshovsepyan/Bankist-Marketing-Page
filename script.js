@@ -56,10 +56,31 @@ cookieMessage.style.backgroundColor = '#37383d';
 cookieMessage.style.width = '100vw';
 cookieMessage.style.height = '70px';
 
+///////////////////////// BUTTON SCROLL /////////////////////////////////
+///// Button and section selectors
+const buttonScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
+///// Event handler to the button
+buttonScrollTo.addEventListener('click', function(e) {
+  e.preventDefault();
+///// Scrolling
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
 
+////////////// PAGE NAVIGATION SMOOTH / NAVIGATION BAR EVENTS ////////////////
+/// creating an event on parent element,
+/// passing to child with event delegation
+document.querySelector('.nav__links')
+  .addEventListener('click', function(e) {
+    e.preventDefault();
 
-
+    if (e.target.classList.contains('nav__link')
+      && !e.target.classList.contains('btn--show-modal')) {
+      const id = e.target.getAttribute('href');
+      document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  }, true);
 
 
 
