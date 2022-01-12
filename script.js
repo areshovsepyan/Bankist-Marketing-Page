@@ -228,6 +228,7 @@ const imgObserver = new IntersectionObserver(loadImg,
 imgTargets.forEach(img => imgObserver.observe(img));
 
 //////////////////////// SLIDER COMPONENT //////////////////////
+///// WITH BUTTONS
 let currentSlide = 0;
 const maxSlide = slides.length;
 
@@ -238,20 +239,24 @@ const goToSlide = function(slideNum) {
 };
 goToSlide(0);
 
-/// Event handler RIGHT BUTTON
-btnRight.addEventListener('click', function() {
+const nextSlide = () => {
   currentSlide !== maxSlide - 1 ? currentSlide++ : currentSlide = 0;
-
   goToSlide(currentSlide);
-});
+};
 
-/// Event handler LEFT BUTTON
-btnLeft.addEventListener('click', function() {
+const prevSlide = () => {
   if (currentSlide === 0) return;
-
   currentSlide--;
   goToSlide(currentSlide);
-});
+};
+
+/// Event handler RIGHT BUTTON
+btnRight.addEventListener('click', () => nextSlide());
+
+/// Event handler LEFT BUTTON
+btnLeft.addEventListener('click', () => prevSlide());
+
+///// WITH DOTS
 
 
 
