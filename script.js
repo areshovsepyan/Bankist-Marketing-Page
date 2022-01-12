@@ -68,7 +68,7 @@ setTimeout(() => cookieCloseBtn = document
   .querySelector('.btn--close-cookie'), 1550);
 
 ///// Open cookie message with 1.5s delay
-setTimeout(() => header.append(cookieMessage), 1500);
+setTimeout(() => header.prepend(cookieMessage), 1500);
 
 ///// Close cookie message with 1.6s delay
 setTimeout(() => cookieCloseBtn
@@ -151,20 +151,38 @@ navBar
   .addEventListener('mouseout', hoverHandler.bind(1));
 
 //////////////////////// STICKY NAV BAR IMPLEMENTATION //////////////////////
-const initialCoord = section1.getBoundingClientRect();
+/// THE SCROLL EVENT (BAD PRACTICE - BAD FOR OLD MOBILE DEVICES)
+// const initialCoord = section1.getBoundingClientRect();
 
-window.addEventListener('scroll', function() {
-  if (window.scrollY < initialCoord.top) {
-    navBar.classList.remove('sticky');
-  }
-  if (window.scrollY >= initialCoord.top) {
+// window.addEventListener('scroll', function() {
+//   if (window.scrollY < initialCoord.top) {
+//     navBar.classList.remove('sticky');
+//   }
+//   if (window.scrollY >= initialCoord.top) {
+//     navBar.classList.add('sticky');
+//   }
+// });
+
+/// THE INTERSECTION OBSERVER API (BETTER PRACTICE)
+const navHeight = navBar.getBoundingClientRect().height;
+const stickyNav = function(entries, _) {
+  const [entry] = entries;
+
+  navBar.classList.remove('sticky')
+  if (!entry.isIntersecting) {
     navBar.classList.add('sticky');
   }
-});
+};
 
-
-
-
+const headerObserver =
+  new IntersectionObserver(
+    stickyNav,
+    {
+      root: null,
+      threshold: 0,
+      rootMargin: `-${navHeight}px`,
+    });
+headerObserver.observe(header);
 
 
 
