@@ -29,6 +29,12 @@ const navBar = document
   .querySelector('.nav');
 const imgTargets = document
   .querySelectorAll('img[data-src]');
+const slides = document
+  .querySelectorAll('.slide');
+const btnLeft = document
+  .querySelector('.slider__btn--left');
+const btnRight = document
+  .querySelector('.slider__btn--right');
 
 
 //////////////////  HEADER STYLE CHANGED  //////////////////////////////
@@ -196,7 +202,7 @@ const sectionObserver = new IntersectionObserver(
   });
 allSections.forEach(function(section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 //////////////////////// LAZY LOADING IMAGES //////////////////////
@@ -216,11 +222,36 @@ const imgObserver = new IntersectionObserver(loadImg,
   {
     root: null,
     threshold: 0,
-    rootMargin: '200px',
+    rootMargin: '200px'
   });
 
 imgTargets.forEach(img => imgObserver.observe(img));
 
+//////////////////////// SLIDER COMPONENT //////////////////////
+let currentSlide = 0;
+const maxSlide = slides.length;
+
+const goToSlide = function(slideNum) {
+  slides.forEach(
+    (slide, index) =>
+      slide.style.transform = `translateX(${100 * (index - slideNum)}%)`);
+};
+goToSlide(0);
+
+/// Event handler RIGHT BUTTON
+btnRight.addEventListener('click', function() {
+  currentSlide !== maxSlide - 1 ? currentSlide++ : currentSlide = 0;
+
+  goToSlide(currentSlide);
+});
+
+/// Event handler LEFT BUTTON
+btnLeft.addEventListener('click', function() {
+  if (currentSlide === 0) return;
+
+  currentSlide--;
+  goToSlide(currentSlide);
+});
 
 
 
