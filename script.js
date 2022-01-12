@@ -150,4 +150,35 @@ navBar
 navBar
   .addEventListener('mouseout', hoverHandler.bind(1));
 
+//////////////////////// STICKY NAV BAR IMPLEMENTATION //////////////////////
+const initialCoord = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function() {
+  if (window.scrollY < initialCoord.top) {
+    navBar.classList.remove('sticky');
+  }
+  if (window.scrollY >= initialCoord.top) {
+    navBar.classList.add('sticky');
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
